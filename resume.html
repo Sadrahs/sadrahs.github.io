@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sadra's Resume</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      background-color: #f1f1f1;
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    .container {
+      margin: 50px auto;
+      max-width: 800px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 60px;
+      font-weight: 100;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    iframe {
+      width: 100%;
+      height: 1000px;
+      border: none;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      background-color: white;
+    }.custom-header {
+  background: #121212;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  font-family: "Helvetica Neue", sans-serif;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.custom-header .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: #ff66cc;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  color: black;
+}
+
+.custom-header nav a {
+  color: white;
+  margin: 0 1rem;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1rem;
+}
+
+.custom-header nav a:hover {
+  color: #ff66cc;
+}
+
+.github-btn {
+  background: #7c3aed;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s;
+}
+
+.github-btn:hover {
+  background: #a78bfa;
+}
+
+
+    .back-link {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: #333;
+      color: white;
+      padding: 8px 12px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .back-link:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+    <header class="custom-header">
+        <nav>
+          <a href="#home"><i class="fas fa-home"></i> Home</a>
+          <a href="#about"><i class="fas fa-user"></i> About</a>
+          <a href="project.html"><i class="fas fa-image"></i> Projects</a>
+          <a href="resume.html"><i class="fas fa-file-alt"></i> Resume</a>
+        </nav>
+        <a class="github-btn" href="https://github.com/yourusername" target="_blank">
+          <i class="fas fa-code-branch"></i> <i class="fas fa-star"></i>
+        </a>
+      </header>
+  <a class="back-link" href="index.html">Back to Home</a>
+  <div class="container">
+    <h1>📄 My Resume</h1>
+    <iframe src="gif/resume.pdf"></iframe>
+  </div>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects · Sadra's Playground</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      background: #f9f9f9;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .custom-header {
+  background: #121212;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  font-family: "Helvetica Neue", sans-serif;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.custom-header .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: #ff66cc;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  color: black;
+}
+
+.custom-header nav a {
+  color: white;
+  margin: 0 1rem;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1rem;
+}
+
+.custom-header nav a:hover {
+  color: #ff66cc;
+}
+
+.github-btn {
+  background: #7c3aed;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s;
+}
+
+.github-btn:hover {
+  background: #a78bfa;
+}
+
+
+    .container {
+      max-width: 600px;
+      text-align: center;
+      padding: 2rem;
+      background: white;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    .projects {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .projects a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border: 2px solid #007acc;
+      color: #007acc;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .projects a:hover {
+      background: #007acc;
+      color: white;
+    }
+    body {
+  margin: 0;
+  background: #f9f9f9;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+    .back-link {
+      margin-top: 2rem;
+      display: inline-block;
+      font-size: 0.9rem;
+      color: #777;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+    
+    <header class="custom-header">
+        <nav>
+          <a href="#home"><i class="fas fa-home"></i> Home</a>
+          <a href="#about"><i class="fas fa-user"></i> About</a>
+          <a href="project.html"><i class="fas fa-image"></i> Projects</a>
+          <a href="resume.html"><i class="fas fa-file-alt"></i> Resume</a>
+        </nav>
+        <a class="github-btn" href="https://github.com/yourusername" target="_blank">
+          <i class="fas fa-code-branch"></i> <i class="fas fa-star"></i>
+        </a>
+      </header>
+  <div class="container">
+    <h1>🛠 Projects</h1>
+    <p>Explore my small but fun coding experiments:</p>
+    <div class="projects">
+      <a href="games/tic-tac-toe.html">Tic Tac Toe</a>
+      <a href="games/memory.html">Memory Match</a>
+      <a href="games/snake.html">Snake</a>
+      <a href="games/typing.html">Typing Test</a>
+    </div>
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </div>
+</body>
+</html>
