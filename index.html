@@ -1,10 +1,224 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sadra's Playground</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: url('gif/Back.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #333;
+    }
+    header {
+      background: #333;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav {
+      background: #444;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0.5rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    section {
+      padding: 6rem 1rem;
+      text-align: center;
+    }
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .about img {
+      width: 150px;
+      margin-bottom: 2rem;
+    }
+    .about h2 {
+      font-size: 2.5rem;
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+    .about p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: rgba(0,0,0,0.7);
+    }
+    .about ul {
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0;
+      font-size: 1.1rem;
+    }
+    .games {
+      background: #e0e0e0;
+    }
+    .games h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .game-link {
+      display: inline-block;
+      margin: 1rem;
+      padding: 1rem 2rem;
+      border: 2px solid #333;
+      border-radius: 8px;
+      background: white;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .game-link:hover {
+      background: #ccc;
+    }
+    .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .about img {
+        width: 100px;
+      }
+      .about h2 {
+        font-size: 2rem;
+      }
+      .games h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, { threshold: 0.1 });
+  
+      document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+    });
+  </script>
+</head>
 <body>
-    <h1>Welcome to My Web Page</h1>
-    <p>I'm Sadra Hosseini.</p>
-    <p>A computer Science Student in TMU.</p>
-    <script src="script.js"></script>
+
+  <header>
+    <h1>Sadra's Playground</h1>
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#games">Games</a>
+  </nav>
+
+  <section id="about" class="about fade-in">
+    <div class="container" style="
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      background-color: rgba(255, 255, 255, 0.85); /* Soft white background */
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    ">
+      <!-- Text on the left -->
+      <div style="flex: 1; min-width: 280px; text-align: left;">
+        <h2 style="font-size: 2.5rem; font-weight: 300; margin-bottom: 1rem;">Hi, I'm Sadra 👋</h2>
+        <p style="font-size: 1.2rem; line-height: 1.6; color: #333;">
+          A Computer Science student passionate about web dev and fun coding projects!
+        </p>
+        <ul style="list-style: none; padding: 0; margin: 2rem 0; font-size: 1.1rem; color: #444;">
+          <li><strong>Languages:</strong> JavaScript, Python, C++</li>
+          <li><strong>Frameworks:</strong> React, Node.js</li>
+          <li>
+            <strong>Links:</strong>
+            <a href="https://github.com/" target="_blank">GitHub</a> |
+            <a href="https://linkedin.com/" target="_blank">LinkedIn</a>
+          </li>
+        </ul>
+      </div>
+  
+      <!-- Image on the right -->
+      <div style="flex: 1; min-width: 200px; text-align: center;">
+        <img src="gif/Code.png" alt="Coding animation" style="max-width: 100%; width: 250px;" />
+      </div>
+    </div>
+  </section>
+  
+  
+
+  <section id="games" class="games fade-in">
+    <div class="container">
+      <h2>🎮 Mini Games</h2>
+      <p>Choose a game to play:</p>
+      <a class="game-link" href="games/tic-tac-toe.html">Tic Tac Toe</a>
+      <a class="game-link" href="games/memory.html">Memory Match</a>
+      <a class="game-link" href="games/snake.html">Snake</a>
+      <a class="game-link" href="games/typing.html">Typing Test</a>
+    </div>
+  </section>
 
 
+
+
+  <script>
+    // Fade-in effect for the about section
+    const aboutSection = document.querySelector('.about');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    observer.observe(aboutSection);
+    </script>
+    <section id="projects" class="fade-in" style="background: #f8f8f8; padding: 4rem 1rem;">
+      <div class="container" style="max-width: 800px; margin: auto; text-align: center;">
+        <h2 style="font-size: 2rem; margin-bottom: 1rem;">🛠 Projects</h2>
+        <p>Here are some things I've built recently:</p>
+        <ul style="list-style: none; padding: 0; margin-top: 2rem; font-size: 1.1rem;">
+          <li><strong>Portfolio Website</strong> – A personal site built using HTML/CSS/JavaScript</li>
+          <li><strong>Typing Game</strong> – A fun way to improve typing speed</li>
+          <li><strong>Snake Clone</strong> – A remake of the classic Snake game using pure JavaScript</li>
+        </ul>
+      </div>
+    </section>
+    
+    <footer style="background: #333; color: #ccc; text-align: center; padding: 1.5rem; font-size: 0.9rem;">
+      <p>&copy; 2025 Sadra Hosseini. Built with ❤️ and HTML/CSS.</p>
+      <p>
+        <a href="mailto:sadra@example.com" style="color: #ccc; text-decoration: underline;">Contact Me</a>
+      </p>
+    </footer>
+</body>
 </html>

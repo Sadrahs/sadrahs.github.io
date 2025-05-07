@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tic Tac Toe</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #f0f0f0, #e0e0e0);
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-weight: 300;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    select {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      border: 1px solid #aaa;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .cell {
+      width: 100px;
+      height: 100px;
+      background: #fff;
+      border: 2px solid #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .cell:hover {
+      background: #f9f9f9;
+    }
+
+    .status {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Tic Tac Toe</h1>
+
+  <select id="mode">
+    <option value="pvp">👥 Player vs Player</option>
+    <option value="bot">🤖 Player vs Bot</option>
+  </select>
+
+  <div class="board" id="board"></div>
+
+  <div class="status" id="status">Player X's turn</div>
+
+  <button id="reset">Reset Game</button>
+
+  <script>
+    const board = document.getElementById("board");
+    const status = document.getElementById("status");
+    const modeSelect = document.getElementById("mode");
+    const resetBtn = document.getElementById("reset");
+
+    let cells = Array(9).fill(null);
+    let currentPlayer = "X";
+    let isBot = false;
+    let cellElements = [];
+
+    function checkWinner() {
+      const wins = [
+        [0,1,2], [3,4,5], [6,7,8],
+        [0,3,6], [1,4,7], [2,5,8],
+        [0,4,8], [2,4,6]
+      ];
+      for (let [a,b,c] of wins) {
+        if (cells[a] && cells[a] === cells[b] && cells[a] === cells[c]) {
+          return cells[a];
+        }
+      }
+      return cells.includes(null) ? null : "Draw";
+    }
+
+    function updateStatus() {
+      const winner = checkWinner();
+      if (winner) {
+        status.textContent = winner === "Draw" ? "It's a draw!" : `${winner} wins!`;
+        return true;
+      }
+      status.textContent = `Player ${currentPlayer}'s turn`;
+      return false;
+    }
+
+    function botMove() {
+      // Try to win or block
+      const available = cells.map((v, i) => v === null ? i : null).filter(v => v !== null);
+      for (let i of available) {
+        const temp = [...cells];
+        temp[i] = "O";
+        if (checkWinnerSim(temp) === "O") return i;
+      }
+      for (let i of available) {
+        const temp = [...cells];
+        temp[i] = "X";
+        if (checkWinnerSim(temp) === "X") return i;
+      }
+      return available[Math.floor(Math.random() * available.length)];
+    }
+
+    function checkWinnerSim(simCells) {
+      const wins = [
+        [0,1,2], [3,4,5], [6,7,8],
+        [0,3,6], [1,4,7], [2,5,8],
+        [0,4,8], [2,4,6]
+      ];
+      for (let [a,b,c] of wins) {
+        if (simCells[a] && simCells[a] === simCells[b] && simCells[a] === simCells[c]) {
+          return simCells[a];
+        }
+      }
+      return simCells.includes(null) ? null : "Draw";
+    }
+
+    function handleClick(i) {
+      if (cells[i] || checkWinner()) return;
+      cells[i] = currentPlayer;
+      cellElements[i].textContent = currentPlayer;
+
+      if (updateStatus()) return;
+
+      currentPlayer = currentPlayer === "X" ? "O" : "X";
+
+      if (isBot && currentPlayer === "O") {
+        setTimeout(() => {
+          const move = botMove();
+          if (move != null) {
+            cells[move] = "O";
+            cellElements[move].textContent = "O";
+            updateStatus();
+            currentPlayer = "X";
+          }
+        }, 500); // slight delay for realism
+      }
+    }
+
+    function renderBoard() {
+      board.innerHTML = "";
+      cellElements = [];
+      cells.forEach((_, i) => {
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.addEventListener("click", () => handleClick(i));
+        board.appendChild(cell);
+        cellElements.push(cell);
+      });
+    }
+
+    function resetGame() {
+      cells = Array(9).fill(null);
+      currentPlayer = "X";
+      status.textContent = "Player X's turn";
+      renderBoard();
+    }
+
+    resetBtn.addEventListener("click", resetGame);
+    modeSelect.addEventListener("change", () => {
+      isBot = modeSelect.value === "bot";
+      resetGame();
+    });
+
+    isBot = modeSelect.value === "bot";
+    renderBoard();
+  </script>
+
+</body>
+</html>
