@@ -54,9 +54,17 @@
       background: #f9f9f9;
     }
 
-    .status {
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
+    .status, .scoreboard {
+      font-size: 1.1rem;
+      margin-top: 0.8rem;
+    }
+
+    .scoreboard {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border: 1px solid #aaa;
+      border-radius: 8px;
+      background: #fff;
     }
 
     button {
@@ -67,6 +75,7 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
+      margin-top: 1rem;
     }
 
     button:hover {
@@ -87,6 +96,14 @@
 
   <div class="status" id="status">Player X's turn</div>
 
+  <div class="scoreboard" id="scoreboard">
+    <strong>Scoreboard</strong><br>
+    Rounds Played: <span id="rounds">0</span><br>
+    X Wins: <span id="xWins">0</span><br>
+    O Wins: <span id="oWins">0</span><br>
+    Draws: <span id="draws">0</span>
+  </div>
+
   <button id="reset">Reset Game</button>
 
   <script>
@@ -95,10 +112,33 @@
     const modeSelect = document.getElementById("mode");
     const resetBtn = document.getElementById("reset");
 
+    const roundsEl = document.getElementById("rounds");
+    const xWinsEl = document.getElementById("xWins");
+    const oWinsEl = document.getElementById("oWins");
+    const drawsEl = document.getElementById("draws");
+
+    let rounds = 0;
+    let xWins = 0;
+    let oWins = 0;
+    let draws = 0;
+
     let cells = Array(9).fill(null);
     let currentPlayer = "X";
     let isBot = false;
     let cellElements = [];
+    let gameOver = false;
+
+    function updateScoreboard(winner) {
+      rounds++;
+      if (winner === "X") xWins++;
+      else if (winner === "O") oWins++;
+      else if (winner === "Draw") draws++;
+
+      roundsEl.textContent = rounds;
+      xWinsEl.textContent = xWins;
+      oWinsEl.textContent = oWins;
+      drawsEl.textContent = draws;
+    }
 
     function checkWinner() {
       const wins = [
@@ -114,54 +154,56 @@
       return cells.includes(null) ? null : "Draw";
     }
 
-    function updateStatus() {
-      const winner = checkWinner();
-      if (winner) {
-        status.textContent = winner === "Draw" ? "It's a draw!" : `${winner} wins!`;
-        return true;
-      }
-      status.textContent = `Player ${currentPlayer}'s turn`;
-      return false;
-    }
-
     function botMove() {
-      // Try to win or block
       const available = cells.map((v, i) => v === null ? i : null).filter(v => v !== null);
+
+      // Win
       for (let i of available) {
         const temp = [...cells];
         temp[i] = "O";
         if (checkWinnerSim(temp) === "O") return i;
       }
+
+      // Block
       for (let i of available) {
         const temp = [...cells];
         temp[i] = "X";
         if (checkWinnerSim(temp) === "X") return i;
       }
+
+      // Random
       return available[Math.floor(Math.random() * available.length)];
     }
 
-    function checkWinnerSim(simCells) {
+    function checkWinnerSim(tempCells) {
       const wins = [
         [0,1,2], [3,4,5], [6,7,8],
         [0,3,6], [1,4,7], [2,5,8],
         [0,4,8], [2,4,6]
       ];
       for (let [a,b,c] of wins) {
-        if (simCells[a] && simCells[a] === simCells[b] && simCells[a] === simCells[c]) {
-          return simCells[a];
+        if (tempCells[a] && tempCells[a] === tempCells[b] && tempCells[a] === tempCells[c]) {
+          return tempCells[a];
         }
       }
-      return simCells.includes(null) ? null : "Draw";
+      return tempCells.includes(null) ? null : "Draw";
     }
 
     function handleClick(i) {
-      if (cells[i] || checkWinner()) return;
+      if (cells[i] || gameOver) return;
       cells[i] = currentPlayer;
       cellElements[i].textContent = currentPlayer;
 
-      if (updateStatus()) return;
+      const result = checkWinner();
+      if (result) {
+        status.textContent = result === "Draw" ? "It's a draw!" : `${result} wins!`;
+        updateScoreboard(result === "Draw" ? "Draw" : result);
+        gameOver = true;
+        return;
+      }
 
       currentPlayer = currentPlayer === "X" ? "O" : "X";
+      status.textContent = `Player ${currentPlayer}'s turn`;
 
       if (isBot && currentPlayer === "O") {
         setTimeout(() => {
@@ -169,10 +211,18 @@
           if (move != null) {
             cells[move] = "O";
             cellElements[move].textContent = "O";
-            updateStatus();
-            currentPlayer = "X";
+
+            const botResult = checkWinner();
+            if (botResult) {
+              status.textContent = botResult === "Draw" ? "It's a draw!" : `${botResult} wins!`;
+              updateScoreboard(botResult === "Draw" ? "Draw" : botResult);
+              gameOver = true;
+            } else {
+              currentPlayer = "X";
+              status.textContent = `Player ${currentPlayer}'s turn`;
+            }
           }
-        }, 500); // slight delay for realism
+        }, 500);
       }
     }
 
@@ -191,15 +241,17 @@
     function resetGame() {
       cells = Array(9).fill(null);
       currentPlayer = "X";
-      status.textContent = "Player X's turn";
+      gameOver = false;
+      status.textContent = `Player X's turn`;
       renderBoard();
     }
 
-    resetBtn.addEventListener("click", resetGame);
     modeSelect.addEventListener("change", () => {
       isBot = modeSelect.value === "bot";
       resetGame();
     });
+
+    resetBtn.addEventListener("click", resetGame);
 
     isBot = modeSelect.value === "bot";
     renderBoard();
