@@ -7,21 +7,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
-    body {
-      margin: 0;
-      background: #f9f9f9;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+body {
+  margin: 0;
+  background: #f9f9f9;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
     .custom-header {
   background: #121212;
   color: white;
   display: flex;
   justify-content: space-between;
-  align-items: top;
+  align-items: center;
   padding: 1rem 2rem;
   font-family: "Helvetica Neue", sans-serif;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
@@ -71,14 +68,22 @@
 }
 
 
-    .container {
-      max-width: 600px;
-      text-align: center;
-      padding: 2rem;
-      background: white;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      border-radius: 16px;
-    }
+.container {
+  max-width: 700px;
+  margin: 5rem auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, #121212, #292929);
+  color: white;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
+}
+
+.container:hover {
+  transform: scale(1.02);
+}
+
+
 
     h1 {
       font-size: 2.5rem;
@@ -113,11 +118,6 @@
       background: #007acc;
       color: white;
     }
-    body {
-  margin: 0;
-  background: #f9f9f9;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
 
 
     .back-link {
@@ -126,10 +126,15 @@
       font-size: 0.9rem;
       color: #777;
       text-decoration: none;
+      border: 2px solid red;
+      color: red;
+      border-radius: 6px;
     }
 
     .back-link:hover {
       text-decoration: underline;
+      background: red;
+      color: white
     }
   </style>
 </head>
@@ -148,14 +153,13 @@
       </header>
   <div class="container">
     <h1>🛠 Projects</h1>
-    <p>Explore my small but fun coding experiments:</p>
+    <p style=" color: white ;">Explore my small but fun coding experiments:</p>
     <div class="projects">
       <a href="games/tic-tac-toe.html">Tic Tac Toe</a>
       <a href="games/memory.html">Memory Match</a>
       <a href="games/snake.html">Snake</a>
       <a href="games/typing.html">Typing Test</a>
-
-      
+      <a href="Projects/moviePicker/index.html">Movie Picker (in progress) </a>
     </div>
     <a href="index.html" class="back-link">← Back to Home</a>
   </div>
